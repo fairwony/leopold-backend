@@ -26,7 +26,7 @@ public class UserController {
     }
 
     /* 회원가입 */
-    @PostMapping("/user")
+    @PostMapping("/join")
     public ResponseEntity<?> join(@RequestBody RequestJoinDto dto) {
         if (dto.getId().isEmpty() || dto.getPassword().isEmpty() || dto.getName().isEmpty() || dto.getZipcode().isEmpty() || dto.getAddress().isEmpty() || dto.getPhone().isEmpty() || dto.getEmail().isEmpty() || dto.getAgreeEmailYn().isEmpty() || dto.getAgreeSmsYn().isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("필수 정보 누락");
