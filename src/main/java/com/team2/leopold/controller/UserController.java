@@ -83,7 +83,7 @@ public class UserController {
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if(session == null) return ResponseEntity.status(HttpStatus.OK).body("세션이 존재하지 않음");
+        if(session == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("세션이 존재하지 않음");
 
         session.invalidate();
         return ResponseEntity.status(HttpStatus.OK).body("로그아웃 완료!");
