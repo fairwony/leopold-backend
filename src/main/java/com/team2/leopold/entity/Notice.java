@@ -3,7 +3,7 @@ package com.team2.leopold.entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicInsert;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @DynamicInsert
@@ -14,12 +14,12 @@ public class Notice {
     private String title;
     private String content;
     @Column(name = "write_date")
-    private LocalDateTime writeDate;
+    private LocalDate writeDate;
     private Integer hit;
     @Column(name = "image_url")
     private String imageUrl;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_uid")
     private User user;
 
@@ -47,11 +47,11 @@ public class Notice {
         this.content = content;
     }
 
-    public LocalDateTime getWriteDate() {
+    public LocalDate getWriteDate() {
         return writeDate;
     }
 
-    public void setWriteDate(LocalDateTime writeDate) {
+    public void setWriteDate(LocalDate writeDate) {
         this.writeDate = writeDate;
     }
 
