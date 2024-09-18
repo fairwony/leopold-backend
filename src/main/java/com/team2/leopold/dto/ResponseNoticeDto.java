@@ -1,5 +1,7 @@
 package com.team2.leopold.dto;
 
+import com.team2.leopold.entity.User;
+
 import java.time.LocalDate;
 
 public class ResponseNoticeDto {
@@ -9,6 +11,7 @@ public class ResponseNoticeDto {
     private LocalDate writeDate;
     private Integer hit;
     private String imageUrl;
+    private User user;
 
     public Integer getUid() {
         return uid;
@@ -56,5 +59,13 @@ public class ResponseNoticeDto {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

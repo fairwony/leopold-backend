@@ -79,4 +79,3 @@ public class Notice {
         this.user = user;
     }
 }
-// 황유원
