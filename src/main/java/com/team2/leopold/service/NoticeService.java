@@ -16,6 +16,7 @@ public class NoticeService {
 
     @Autowired
     public NoticeService(NoticeRepository noticeRepository) {
+
         this.noticeRepository = noticeRepository;
     }
 
@@ -23,7 +24,14 @@ public class NoticeService {
         return noticeRepository.findAll();
     }
 
-//    Optional<Notice> foundNotice = noticeRepository.findById(int uid);
+    public Notice readNotice(int uid) {
+        Optional<Notice> foundNotice = noticeRepository.findById(uid);
+        if (foundNotice.isPresent()) {
+            return foundNotice.get();
+        }
+        return null;
+    }
+
 
 }
 
