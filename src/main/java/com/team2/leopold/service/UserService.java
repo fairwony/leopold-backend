@@ -24,8 +24,8 @@ public class UserService {
     @Transactional
     public void join(User user) throws DuplicateKeyException {
         Optional<User> optionalUser = repository.findById(user.getId());
-
         if (optionalUser.isPresent()) throw new DuplicateKeyException(null);
+
         repository.save(user);
     }
 

@@ -1,26 +1,16 @@
-package com.team2.leopold.entity;
+package com.team2.leopold.dto;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.DynamicInsert;
+import com.team2.leopold.entity.User;
 
 import java.time.LocalDate;
 
-@Entity
-@DynamicInsert
-public class Notice {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ResponseNoticeDto {
     private Integer uid;
     private String title;
     private String content;
-    @Column(name = "write_date")
     private LocalDate writeDate;
     private Integer hit;
-    @Column(name = "image_url")
     private String imageUrl;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_uid")
     private User user;
 
     public Integer getUid() {
