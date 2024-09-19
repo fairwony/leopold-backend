@@ -4,6 +4,7 @@ import com.team2.leopold.dto.ResponseNoticeDto;
 import com.team2.leopold.entity.Notice;
 import com.team2.leopold.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +34,13 @@ public class NoticeService {
         }
         return null;
     }
-
+// 공지사항 전체 조회
+    public List<Notice> getNotices(Pageable pageable) {
+        return noticeRepository.findAll(pageable)
+                .stream()
+                .map(notice -> new Notice())
+                .collect(Collectors.toList());
+    }
 
 }
 
