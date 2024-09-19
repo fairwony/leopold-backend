@@ -21,6 +21,9 @@ public class One2One {
     private String answerYn;
     private String answer;
     private String email;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_uid")
+    private User user;
 
     public String getEmail() {
         return email;
@@ -29,10 +32,6 @@ public class One2One {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_uid")
-    private User user;
 
     public Integer getUid() {
         return uid;
@@ -97,4 +96,5 @@ public class One2One {
     public void setUser(User user) {
         this.user = user;
     }
+
 }

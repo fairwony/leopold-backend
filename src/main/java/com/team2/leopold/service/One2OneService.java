@@ -1,12 +1,15 @@
 package com.team2.leopold.service;
 
+import com.team2.leopold.entity.Notice;
 import com.team2.leopold.entity.One2One;
+import com.team2.leopold.entity.User;
 import com.team2.leopold.repository.One2OneRepository;
 import jakarta.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.naming.AuthenticationException;
 import java.util.Optional;
 
 @Service
@@ -19,12 +22,19 @@ public class One2OneService {
         this.repository = repository;
     }
 
+    // 1대1 문의 작성
     @Transactional
-    public void insertPost(One2One one2One) {
+    public void insertOne2One(One2One one2One) {
         repository.save(one2One);
     }
 
-    public Optional<One2One> findOne2One(Integer uid) throws NoResultException {
-        return repository.findById(uid);
+    // 1대1 문의 상세조회
+    public One2One findOne2One(int uid) {
+        Optional<One2One> foundNotice = repository.findById(uid);
+        if (foundNotice.isPresent()) {
+            return foundNotice.get();
+        }
+        return null;
     }
+
 }
