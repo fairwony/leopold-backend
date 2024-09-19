@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional(readOnly = true)
 public class NoticeService {
-    NoticeRepository noticeRepository;
+    private final NoticeRepository noticeRepository;
 
     @Autowired
     public NoticeService(NoticeRepository noticeRepository) {
