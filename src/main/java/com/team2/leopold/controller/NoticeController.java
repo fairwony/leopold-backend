@@ -46,8 +46,8 @@ public class NoticeController {
     }
 // 공지사항 전체 조회
     @GetMapping("/notices")
-    public ResponseEntity<?> getNotices(@RequestParam(defaultValue = "0") int page,
-                                        @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<?> getNotices(@RequestParam(defaultValue = "0") Integer page,
+                                        @RequestParam(defaultValue = "10") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         List<Notice> notices = noticeService.getNotices(pageable);
 
