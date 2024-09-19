@@ -21,9 +21,9 @@ public class NoticeController {
     public NoticeController(NoticeService noticeService) {
         this.noticeService = noticeService;
     }
-
+// 공지사항 상세 조회
     @GetMapping("/notices/{uid}")
-    public ResponseEntity<?> readNotice(@PathVariable int uid) {
+    public ResponseEntity<?> readNotice(@PathVariable Integer uid) {
 
         try {
             Notice notice = noticeService.readNotice(uid);
@@ -40,7 +40,7 @@ public class NoticeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("게시글을 찾을 수 없습니다.");
         }
     }
-
+// 공지사항 전체 조회
 //    @GetMapping("/notices")
 //    public ResponseEntity<?> getNotices() {
 //        List<Notice> noticeList = noticeService.getNotices();
