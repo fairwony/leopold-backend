@@ -11,7 +11,17 @@ public class ResponseNoticeDto {
     private LocalDate writeDate;
     private Integer hit;
     private String imageUrl;
-    private User user;
+    private String name;
+
+    public ResponseNoticeDto(Integer uid, String title, String content, LocalDate writeDate, Integer hit, String imageUrl, String name) {
+        this.uid = uid;
+        this.title = title;
+        this.content = content;
+        this.writeDate = writeDate;
+        this.hit = hit;
+        this.imageUrl = imageUrl;
+        this.name = name;
+    }
 
     public Integer getUid() {
         return uid;
@@ -61,11 +71,11 @@ public class ResponseNoticeDto {
         this.imageUrl = imageUrl;
     }
 
-    public User getUser() {
-        return user;
+    public String getName() {
+        return name;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setName(String name) {
+        this.name = name;
     }
 }
