@@ -20,6 +20,15 @@ public class One2One {
     @Column(name = "answer_yn")
     private String answerYn;
     private String answer;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_uid")

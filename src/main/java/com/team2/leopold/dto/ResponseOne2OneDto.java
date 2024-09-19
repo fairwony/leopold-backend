@@ -1,21 +1,16 @@
 package com.team2.leopold.dto;
 
+import com.team2.leopold.entity.User;
+
 import java.time.LocalDate;
 
-public class ResponseNoticeDto {
+public class ResponseOne2OneDto {
     private Integer uid;
     private String title;
-    private String name;
+    private String content;
+    private User user;
     private LocalDate writeDate;
-    private Integer hit;
-
-    public ResponseNoticeDto(Integer uid, String title, String name, LocalDate writeDate, Integer hit) {
-        this.uid = uid;
-        this.title = title;
-        this.name = name;
-        this.writeDate = writeDate;
-        this.hit = hit;
-    }
+    private String answerYn;
 
     public Integer getUid() {
         return uid;
@@ -33,12 +28,20 @@ public class ResponseNoticeDto {
         this.title = title;
     }
 
-    public String getName() {
-        return name;
+    public String getContent() {
+        return content;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDate getWriteDate() {
@@ -49,11 +52,11 @@ public class ResponseNoticeDto {
         this.writeDate = writeDate;
     }
 
-    public Integer getHit() {
-        return hit;
+    public String getAnswerYn() {
+        return answerYn;
     }
 
-    public void setHit(Integer hit) {
-        this.hit = hit;
+    public void setAnswerYn(String answerYn) {
+        this.answerYn = answerYn;
     }
 }
