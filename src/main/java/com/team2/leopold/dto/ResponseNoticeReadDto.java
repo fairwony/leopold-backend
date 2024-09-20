@@ -2,7 +2,7 @@ package com.team2.leopold.dto;
 
 import java.time.LocalDate;
 
-public class ResponseReadNoticeDto {
+public class ResponseNoticeReadDto {
     private Integer uid;
     private String title;
     private String content;
@@ -12,7 +12,7 @@ public class ResponseReadNoticeDto {
     private Integer prevNum;
     private Integer nextNum;
 
-    public ResponseReadNoticeDto(Integer uid, String title, String content, LocalDate writeDate, String imageUrl, String name) {
+    public ResponseNoticeReadDto(Integer uid, String title, String content, LocalDate writeDate, String imageUrl, String name) {
         this.uid = uid;
         this.title = title;
         this.content = content;

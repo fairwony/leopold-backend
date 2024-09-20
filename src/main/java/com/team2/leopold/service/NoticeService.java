@@ -46,8 +46,8 @@ public class NoticeService {
 
         List<ResponseNoticeDto> responseNoticeDtoList = new ArrayList<>();
         for (Notice notice : notices.getContent()) {
-            ResponseNoticeDto dto = new ResponseNoticeDto(notice.getUid(), notice.getTitle(), notice.getUser().getName(), notice.getWriteDate(), notice.getHit());
-            responseNoticeDtoList.add(dto);
+            ResponseNoticeDto responseNoticeDto = new ResponseNoticeDto(notice.getUid(), notice.getTitle(), notice.getUser().getName(), notice.getWriteDate(), notice.getHit());
+            responseNoticeDtoList.add(responseNoticeDto);
         }
 
         return responseNoticeDtoList;
