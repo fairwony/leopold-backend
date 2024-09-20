@@ -30,9 +30,9 @@ public class One2OneService {
 
     // 1대1 문의 상세조회
     public One2One findOne2One(int uid) {
-        Optional<One2One> foundNotice = repository.findById(uid);
-        if (foundNotice.isPresent()) {
-            return foundNotice.get();
+        Optional<One2One> foundOne2One = repository.findById(uid);
+        if (foundOne2One.isPresent()) {
+            return foundOne2One.get();
         }
         return null;
     }

@@ -17,6 +17,8 @@ public class One2One {
     private LocalDateTime writeDate;
     @Column(name = "delete_yn")
     private String deleteYn;
+    @Column(name = "delete_date")
+    private LocalDateTime deleteDate;
     @Column(name = "answer_yn")
     private String answerYn;
     private String answer;
@@ -75,6 +77,14 @@ public class One2One {
 
     public String getAnswerYn() {
         return answerYn;
+    }
+
+    public LocalDateTime getDeleteDate() {
+        return deleteDate;
+    }
+
+    public void setDeleteDate(LocalDateTime deleteDate) {
+        this.deleteDate = deleteDate;
     }
 
     public void setAnswerYn(String answerYn) {
