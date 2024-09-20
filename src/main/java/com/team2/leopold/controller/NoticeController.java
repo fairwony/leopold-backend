@@ -1,14 +1,10 @@
 package com.team2.leopold.controller;
 
 import com.team2.leopold.dto.ResponseNoticeDto;
-import com.team2.leopold.dto.ResponseReadNoticeDto;
+import com.team2.leopold.dto.ResponseNoticeReadDto;
 import com.team2.leopold.entity.Notice;
 import com.team2.leopold.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +29,7 @@ public class NoticeController {
 
         try {
             Notice notice = noticeService.readNotice(uid);
-            ResponseReadNoticeDto responseReadNoticeDto = new ResponseReadNoticeDto(
+            ResponseNoticeReadDto responseReadNoticeDto = new ResponseNoticeReadDto(
                     notice.getUid(),
                     notice.getTitle(),
                     notice.getContent(),
@@ -51,8 +47,8 @@ public class NoticeController {
     public ResponseEntity<?> getNotices(@RequestParam(name = "page") Integer page,
                                         @RequestParam(name = "size") Integer size) {
 
-        List<ResponseNoticeDto> foundList = noticeService.getNotices(page,size);
-        return ResponseEntity.status(HttpStatus.OK).body(foundList);
+        List<ResponseNoticeDto> foundNotices = noticeService.getNotices(page,size);
+        return ResponseEntity.status(HttpStatus.OK).body(foundNotices);
 
 //        Pageable pageable = PageRequest.of(page, size);
 //        List<Notice> notices = noticeService.getNotices(pageable);
