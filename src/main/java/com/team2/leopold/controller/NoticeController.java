@@ -1,5 +1,6 @@
 package com.team2.leopold.controller;
 
+import com.team2.leopold.dto.ResponseNoticeDto;
 import com.team2.leopold.dto.ResponseReadNoticeDto;
 import com.team2.leopold.entity.Notice;
 import com.team2.leopold.service.NoticeService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,14 +48,18 @@ public class NoticeController {
     }
 // 공지사항 전체 조회
     @GetMapping("/notices")
-    public ResponseEntity<?> getNotices(@RequestParam(defaultValue = "0") Integer page,
-                                        @RequestParam(defaultValue = "10") Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        List<Notice> notices = noticeService.getNotices(pageable);
+    public ResponseEntity<?> getNotices(@RequestParam(name = "page") Integer page,
+                                        @RequestParam(name = "size") Integer size) {
 
-        if (notices.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("게시글을 찾을 수 없습니다.");
-        }
-            return ResponseEntity.status(HttpStatus.OK).body(notices);
+        List<ResponseNoticeDto> foundList = noticeService.getNotices(page,size);
+        return ResponseEntity.status(HttpStatus.OK).body(foundList);
+
+//        Pageable pageable = PageRequest.of(page, size);
+//        List<Notice> notices = noticeService.getNotices(pageable);
+//
+//        if (notices.isEmpty()) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("게시글을 찾을 수 없습니다.");
+//        }
+//            return ResponseEntity.status(HttpStatus.OK).body(notices);
     }
 }
