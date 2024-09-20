@@ -9,6 +9,8 @@ public class ResponseReadNoticeDto {
     private LocalDate writeDate;
     private String imageUrl;
     private String name;
+    private Integer prevNum;
+    private Integer nextNum;
 
     public ResponseReadNoticeDto(Integer uid, String title, String content, LocalDate writeDate, String imageUrl, String name) {
         this.uid = uid;
@@ -65,5 +67,21 @@ public class ResponseReadNoticeDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getPrevNum() {
+        return prevNum;
+    }
+
+    public void setPrevNum(Integer prevNum) {
+        this.prevNum = prevNum;
+    }
+
+    public Integer getNextNum() {
+        return nextNum;
+    }
+
+    public void setNextNum(Integer nextNum) {
+        this.nextNum = nextNum;
     }
 }
