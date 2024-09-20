@@ -1,13 +1,16 @@
 package com.team2.leopold.controller;
 
 import com.team2.leopold.dto.RequestOne2OneDto;
+import com.team2.leopold.dto.ResponseAllOne2OneDto;
 import com.team2.leopold.dto.ResponseOne2OneDto;
 import com.team2.leopold.entity.One2One;
+import com.team2.leopold.entity.Product;
 import com.team2.leopold.entity.User;
 import com.team2.leopold.repository.One2OneRepository;
 import com.team2.leopold.service.One2OneService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
