@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -70,6 +71,7 @@ public class UserController {
             HttpSession session = request.getSession();
             session.setAttribute("user", foundUser);
             session.setAttribute("userUid", foundUser.getUid());
+            session.setAttribute("userPoint", foundUser.getPoint());
 
             return ResponseEntity.status(HttpStatus.OK).body("로그인 완료!");
         } catch (AuthenticationException e) {
@@ -87,5 +89,14 @@ public class UserController {
 
         session.invalidate();
         return ResponseEntity.status(HttpStatus.OK).body("로그아웃 완료!");
+    }
+
+    /* 현재 로그인된 유저의 uid 반환 */
+    @GetMapping("/user/uid")
+    public ResponseEntity<?> userUid(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("세션이 존재하지 않음");
+
+        return ResponseEntity.status(HttpStatus.OK).body((Integer) session.getAttribute("userUid"));
     }
 }
