@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface NoticeRepository extends JpaRepository<Notice, Integer> {
-    @Query("SELECT n FROM Notice n")
-    Page<Notice> findNotices(Pageable pageable);
+
+
 }

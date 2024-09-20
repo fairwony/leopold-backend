@@ -42,7 +42,7 @@ public class NoticeService {
     public List<ResponseNoticeDto> getNotices(Integer page, Integer pageSize) {
         Sort sort = Sort.by(Sort.Direction.DESC, "uid");
         Pageable pageable = PageRequest.of(page - 1, pageSize, sort);
-        Page<Notice> notices = noticeRepository.findNotices(pageable);
+        Page<Notice> notices = noticeRepository.findAll(pageable);
 
         List<ResponseNoticeDto> responseNoticeDtoList = new ArrayList<>();
         for (Notice notice : notices.getContent()) {

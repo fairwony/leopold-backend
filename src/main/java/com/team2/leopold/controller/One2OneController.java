@@ -9,11 +9,17 @@ import com.team2.leopold.service.One2OneService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -62,6 +68,7 @@ public class One2OneController {
                     one2One.getContent(),
                     one2One.getUser().getName(),
                     one2One.getWriteDate(),
+                    one2One.getAnswer(),
                     one2One.getAnswerYn()
             );
             return ResponseEntity.status(HttpStatus.OK).body(responseOne2OneDto);
@@ -91,4 +98,7 @@ public class One2OneController {
         repository.save(foundOne2One);
         return ResponseEntity.status(HttpStatus.OK).body("게시글 삭제 완료");
     }
+
+    //1대1 문의 전체 조회
+
 }

@@ -1,15 +1,18 @@
 package com.team2.leopold.service;
 
-import com.team2.leopold.entity.Notice;
+import com.team2.leopold.dto.ResponseAllOne2OneDto;
 import com.team2.leopold.entity.One2One;
-import com.team2.leopold.entity.User;
 import com.team2.leopold.repository.One2OneRepository;
-import jakarta.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.naming.AuthenticationException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,7 +31,7 @@ public class One2OneService {
         repository.save(one2One);
     }
 
-    // 1대1 문의 상세조회
+    // 1대1 문의 상세 조회
     public One2One findOne2One(int uid) {
         Optional<One2One> foundOne2One = repository.findById(uid);
         if (foundOne2One.isPresent()) {
@@ -36,5 +39,19 @@ public class One2OneService {
         }
         return null;
     }
+
+    /* 1대1 문의 전체 조회
+    public List<ResponseAllOne2OneDto> findAllOne2One(Integer page, Integer pageSize){
+        Sort sort = Sort.by(Sort.Direction.DESC, "uid");
+        Pageable pageable = PageRequest.of(page -1, pageSize, sort);
+        Page<One2One> one2Ones = repository.findOne2Ones(pageable);
+
+        List<ResponseAllOne2OneDto> responseAllOne2OneDtoList= new ArrayList<>();
+        for (One2One one2One : one2Ones.getContent()){
+            ResponseAllOne2OneDto dto = new ResponseAllOne2OneDto(one2One.getUid(), one2One.getTitle(), one2One.getUser().getName(), one2One.getWriteDate(), one2One.getAnswerYn());
+            responseAllOne2OneDtoList.add(dto);
+        }
+        return responseAllOne2OneDtoList;
+    }*/
 
 }
