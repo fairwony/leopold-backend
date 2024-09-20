@@ -26,18 +26,17 @@ public class NoticeService {
         this.noticeRepository = noticeRepository;
     }
 
-    //    public List<Notice> getNotices(Pageable pageable) {
+//        public List<Notice> getNotices(Pageable pageable) {
 //        return noticeRepository.findAll(pageable).stream().map(Notice::new).collect(Collectors.toList());
 //    }
-// 공지사항 상세 조회
-    public Notice readNotice(int uid) {
+    // 공지사항 상세 조회
+    public Notice readNotice(Integer uid) {
         Optional<Notice> foundNotice = noticeRepository.findById(uid);
         if (foundNotice.isPresent()) {
             return foundNotice.get();
         }
         return null;
     }
-
     // 공지사항 전체 조회
     public List<ResponseNoticeDto> getNotices(Integer page, Integer pageSize) {
         Sort sort = Sort.by(Sort.Direction.DESC, "uid");
@@ -46,10 +45,14 @@ public class NoticeService {
 
         List<ResponseNoticeDto> responseNoticeDtoList = new ArrayList<>();
         for (Notice notice : notices.getContent()) {
-            ResponseNoticeDto responseNoticeDto = new ResponseNoticeDto(notice.getUid(), notice.getTitle(), notice.getUser().getName(), notice.getWriteDate(), notice.getHit());
+            ResponseNoticeDto responseNoticeDto = new ResponseNoticeDto(
+                    notice.getUid(),
+                    notice.getTitle(),
+                    notice.getUser().getName(),
+                    notice.getWriteDate(),
+                    notice.getHit());
             responseNoticeDtoList.add(responseNoticeDto);
         }
-
         return responseNoticeDtoList;
     }
 
