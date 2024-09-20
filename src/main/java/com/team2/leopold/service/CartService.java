@@ -7,10 +7,12 @@ import com.team2.leopold.repository.CartRepository;
 import com.team2.leopold.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,5 +47,27 @@ public class CartService {
             cart.setProduct(foundProduct);
             cartRepository.save(cart);
         }
+    }
+
+    /* 장바구니 목록 조회 */
+    public List<Cart> findCartList(Integer userUid) {
+        return cartRepository.findCartList(userUid);
+    }
+
+    /* 장바구니 수량 변경 */
+    @Transactional
+    public void changeQuantity(Integer uid, Integer newQuantity) throws EntityNotFoundException {
+        Optional<Cart> optionalCart = cartRepository.findById(uid);
+        if(optionalCart.isEmpty()) throw new EntityNotFoundException();
+
+        Cart foundCart = optionalCart.get();
+        foundCart.setQuantity(newQuantity);
+        cartRepository.save(foundCart);
+    }
+
+    /* 장바구니 삭제 */
+    @Transactional
+    public void deleteCart(Integer uid) {
+        cartRepository.deleteById(uid);
     }
 }

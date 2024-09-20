@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @DynamicInsert
-public class One2One {
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer uid;
@@ -15,25 +15,15 @@ public class One2One {
     private String content;
     @Column(name = "write_date")
     private LocalDateTime writeDate;
-    @Column(name = "delete_yn")
-    private String deleteYn;
+    @Column(name = "video_url")
+    private String videoUrl;
+    @Column(name = "notice_yn")
+    private String noticeYn;
     @Column(name = "delete_date")
     private LocalDateTime deleteDate;
-    @Column(name = "answer_yn")
-    private String answerYn;
-    private String answer;
-    private String email;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_uid")
     private User user;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public Integer getUid() {
         return uid;
@@ -67,16 +57,20 @@ public class One2One {
         this.writeDate = writeDate;
     }
 
-    public String getDeleteYn() {
-        return deleteYn;
+    public String getVideoUrl() {
+        return videoUrl;
     }
 
-    public void setDeleteYn(String deleteYn) {
-        this.deleteYn = deleteYn;
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 
-    public String getAnswerYn() {
-        return answerYn;
+    public String getNoticeYn() {
+        return noticeYn;
+    }
+
+    public void setNoticeYn(String noticeYn) {
+        this.noticeYn = noticeYn;
     }
 
     public LocalDateTime getDeleteDate() {
@@ -87,18 +81,6 @@ public class One2One {
         this.deleteDate = deleteDate;
     }
 
-    public void setAnswerYn(String answerYn) {
-        this.answerYn = answerYn;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
     public User getUser() {
         return user;
     }
@@ -106,5 +88,4 @@ public class One2One {
     public void setUser(User user) {
         this.user = user;
     }
-
 }
