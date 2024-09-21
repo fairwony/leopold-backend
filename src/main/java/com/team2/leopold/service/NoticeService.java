@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,15 @@ public class NoticeService {
         this.noticeRepository = noticeRepository;
     }
 
+<<<<<<< Updated upstream
     // 공지사항 상세 조회
+=======
+//        public List<Notice> getNotices(Pageable pageable) {
+//        return noticeRepository.findAll(pageable).stream().map(Notice::new).collect(Collectors.toList());
+//    }
+
+// 공지사항 상세 조회
+>>>>>>> Stashed changes
     public Notice readNotice(Integer uid) {
         Optional<Notice> foundNotice = noticeRepository.findById(uid);
         if (foundNotice.isPresent()) {
