@@ -12,12 +12,13 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class AsService {
-    private final AsRepository asRepository;
+    private AsRepository asRepository;
 
     @Autowired
     public AsService(AsRepository asRepository) {
         this.asRepository = asRepository;
     }
+
     // As 전체 조회
     public List<As> getAsList() {
         return asRepository.findAll();

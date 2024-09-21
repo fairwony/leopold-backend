@@ -1,13 +1,11 @@
 package com.team2.leopold.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicInsert;
 
 @Entity
 @DynamicInsert
+@Table(name = "`as`")
 public class As {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

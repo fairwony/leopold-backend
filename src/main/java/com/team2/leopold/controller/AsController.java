@@ -25,7 +25,7 @@ public class AsController {
 
     // As 전체 조회
     @GetMapping("/as")
-    public ResponseEntity<?> getAsList(@PathVariable Integer uid) {
+    public ResponseEntity<?> getAsList() {
         List<As> asList = asService.getAsList();
         List<ResponseAsDto> responseAsDtoList = new ArrayList<>();
 
