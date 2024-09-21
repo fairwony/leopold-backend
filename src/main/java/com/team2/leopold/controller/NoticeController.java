@@ -20,7 +20,7 @@ public class NoticeController {
     private final NoticeService noticeService;
 
     @Autowired
-    public NoticeController(NoticeService noticeService) {
+    public NoticeController(NoticeService noticeService) {//
         this.noticeService = noticeService;
     }
 // 공지사항 상세 조회

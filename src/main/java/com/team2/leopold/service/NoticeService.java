@@ -22,19 +22,10 @@ public class NoticeService {
     private final NoticeRepository noticeRepository;
 
     @Autowired
-    public NoticeService(NoticeRepository noticeRepository) {
+    public NoticeService(NoticeRepository noticeRepository) {//
         this.noticeRepository = noticeRepository;
     }
 
-<<<<<<< Updated upstream
-    // 공지사항 상세 조회
-=======
-//        public List<Notice> getNotices(Pageable pageable) {
-//        return noticeRepository.findAll(pageable).stream().map(Notice::new).collect(Collectors.toList());
-//    }
-
-// 공지사항 상세 조회
->>>>>>> Stashed changes
     public Notice readNotice(Integer uid) {
         Optional<Notice> foundNotice = noticeRepository.findById(uid);
         if (foundNotice.isPresent()) {

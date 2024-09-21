@@ -40,4 +40,6 @@ public class AsController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(responseAsDtoList);
     }
+
+    // As 접수
 }
