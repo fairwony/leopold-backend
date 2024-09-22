@@ -2,6 +2,7 @@ package com.team2.leopold.service;
 
 import com.team2.leopold.dto.ResponseAsDto;
 import com.team2.leopold.entity.As;
+import com.team2.leopold.entity.AsReception;
 import com.team2.leopold.repository.AsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

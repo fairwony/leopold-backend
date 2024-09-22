@@ -5,6 +5,7 @@ public class RequestAsReceptionDto {
     private String title;
     private String content;
 
+
     public RequestAsReceptionDto(Integer uid, String title, String content) {
         this.uid = uid;
         this.title = title;
