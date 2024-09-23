@@ -12,6 +12,8 @@ public class Wish {
     private Integer price;
     @Column(name = "discount_rate")
     private Double discountRate;
+    @Column(name = "ordered_yn")
+    private String orderedYn;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cart_uid")
@@ -42,6 +44,14 @@ public class Wish {
 
     public void setDiscountRate(Double discountRate) {
         this.discountRate = discountRate;
+    }
+
+    public String getOrderedYn() {
+        return orderedYn;
+    }
+
+    public void setOrderedYn(String orderedYn) {
+        this.orderedYn = orderedYn;
     }
 
     public Cart getCart() {
