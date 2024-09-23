@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional(readOnly = true)
 public class ReviewService {
@@ -17,8 +19,20 @@ public class ReviewService {
         this.reviewRepository = reviewRepository;
     }
 
+    // 리뷰 작성
     @Transactional
     public void insertReview(Review review){
         reviewRepository.save(review);
     }
+
+    // 리뷰 상세 조회
+    public Review findReview(int uid){
+        Optional<Review> foundReview = reviewRepository.findById(uid);
+        if(foundReview.isPresent()){
+            return foundReview.get();
+        }
+        return null;
+    }
+
+
 }

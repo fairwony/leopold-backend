@@ -4,24 +4,19 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicInsert;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @DynamicInsert
-public class Review {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer uid;
-    private String title;
     private String content;
     @Column(name = "write_date")
     private LocalDate writeDate;
-    @Column(name = "video_url")
-    private String videoUrl;
-    @Column(name = "notice_yn")
-    private String noticeYn;
-    @Column(name = "delete_date")
-    private LocalDateTime deleteDate;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "review_uid")
+    private Review review;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_uid")
     private User user;
@@ -32,14 +27,6 @@ public class Review {
 
     public void setUid(Integer uid) {
         this.uid = uid;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getContent() {
@@ -58,28 +45,12 @@ public class Review {
         this.writeDate = writeDate;
     }
 
-    public String getVideoUrl() {
-        return videoUrl;
+    public Review getReview() {
+        return review;
     }
 
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
-    }
-
-    public String getNoticeYn() {
-        return noticeYn;
-    }
-
-    public void setNoticeYn(String noticeYn) {
-        this.noticeYn = noticeYn;
-    }
-
-    public LocalDateTime getDeleteDate() {
-        return deleteDate;
-    }
-
-    public void setDeleteDate(LocalDateTime deleteDate) {
-        this.deleteDate = deleteDate;
+    public void setReview(Review review) {
+        this.review = review;
     }
 
     public User getUser() {
