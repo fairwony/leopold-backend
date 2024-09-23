@@ -34,5 +34,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             ON p.category_uid = pc.uid
             WHERE pc.name = :name AND p.color = :color AND p.engraving = :engraving AND p.`switch` = :switch
             """, nativeQuery = true)
-    public Optional<Product> findProduct(@Param("name") String category2, @Param("color") String category3, @Param("engraving") String category4, @Param("switch") String category5);
+    Optional<Product> findProduct(@Param("name") String category2, @Param("color") String category3, @Param("engraving") String category4, @Param("switch") String category5);
 }

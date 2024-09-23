@@ -36,5 +36,13 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
+    //댓글 조회
+    public Comment findComment(Integer uid){
+        Optional<Comment> foundComment = commentRepository.findById(uid);
+        if(foundComment.isPresent()){
+            return foundComment.get();
+        }
+        return null;
+    }
 
 }

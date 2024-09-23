@@ -99,4 +99,13 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.OK).body((Integer) session.getAttribute("userUid"));
     }
+
+    /* 현재 로그인된 유저의 point 반환 */
+    @GetMapping("/point")
+    public ResponseEntity<?> userPoint(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("세션이 존재하지 않음");
+
+        return ResponseEntity.status(HttpStatus.OK).body((Integer) session.getAttribute("userPoint"));
+    }
 }

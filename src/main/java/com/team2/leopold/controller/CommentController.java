@@ -1,6 +1,7 @@
 package com.team2.leopold.controller;
 
 import com.team2.leopold.dto.RequestCommentDto;
+import com.team2.leopold.dto.ResponseCommentDto;
 import com.team2.leopold.entity.Comment;
 import com.team2.leopold.entity.Review;
 import com.team2.leopold.entity.User;
@@ -13,10 +14,7 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -58,4 +56,22 @@ public class CommentController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("해당 리뷰 게시글을 찾을 수 없습니다.");
         }
     }
+
+    // 댓글 조회
+    @GetMapping("/comment/{uid}")
+    public ResponseEntity<?> findComment(@PathVariable int uid){
+        try{
+            Comment comment = commentService.findComment(uid);
+            ResponseCommentDto responseCommentDto = new ResponseCommentDto(
+                    comment.getUid(),
+                    comment.getContent(),
+                    comment.getUser().getName(),
+                    comment.getWriteDate()
+            );
+            return ResponseEntity.status(HttpStatus.OK).body(responseCommentDto);
+        }catch (NullPointerException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("댓글을 찾을 수 없습니다.");
+        }
+    }
+
 }
