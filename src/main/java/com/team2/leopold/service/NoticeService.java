@@ -10,11 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -22,15 +22,11 @@ public class NoticeService {
     private final NoticeRepository noticeRepository;
 
     @Autowired
-    public NoticeService(NoticeRepository noticeRepository) {
+    public NoticeService(NoticeRepository noticeRepository) {//
         this.noticeRepository = noticeRepository;
     }
 
-    //    public List<Notice> getNotices(Pageable pageable) {
-//        return noticeRepository.findAll(pageable).stream().map(Notice::new).collect(Collectors.toList());
-//    }
-// 공지사항 상세 조회
-    public Notice readNotice(int uid) {
+    public Notice readNotice(Integer uid) {
         Optional<Notice> foundNotice = noticeRepository.findById(uid);
         if (foundNotice.isPresent()) {
             return foundNotice.get();
@@ -46,12 +42,15 @@ public class NoticeService {
 
         List<ResponseNoticeDto> responseNoticeDtoList = new ArrayList<>();
         for (Notice notice : notices.getContent()) {
-            ResponseNoticeDto responseNoticeDto = new ResponseNoticeDto(notice.getUid(), notice.getTitle(), notice.getUser().getName(), notice.getWriteDate(), notice.getHit());
+            ResponseNoticeDto responseNoticeDto = new ResponseNoticeDto(
+                    notice.getUid(),
+                    notice.getTitle(),
+                    notice.getUser().getName(),
+                    notice.getWriteDate(),
+                    notice.getHit());
             responseNoticeDtoList.add(responseNoticeDto);
         }
-
         return responseNoticeDtoList;
     }
-
 }
 

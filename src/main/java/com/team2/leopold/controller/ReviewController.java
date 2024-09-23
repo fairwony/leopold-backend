@@ -1,8 +1,6 @@
 package com.team2.leopold.controller;
 
-import com.team2.leopold.dto.RequestReviewDto;
-import com.team2.leopold.dto.ResponseOne2OneDto;
-import com.team2.leopold.dto.ResponseReviewDto;
+import com.team2.leopold.dto.*;
 import com.team2.leopold.entity.Review;
 import com.team2.leopold.entity.User;
 import com.team2.leopold.repository.ReviewRepository;
@@ -13,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ReviewController {
@@ -67,4 +69,65 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("게시글을 찾을 수 없습니다.");
         }
     }
+
+    //리뷰 수정
+    @PatchMapping("/review/{uid}")
+    public ResponseEntity modifyReview(@RequestBody RequestReviewDto requestReviewDto, @PathVariable(name = "uid")int uid,
+                                       HttpServletRequest request){
+        if(requestReviewDto.getTitle() == null || requestReviewDto.getContent() == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("데이터가 누락되었습니다.");
+
+        HttpSession session = request.getSession(false);
+        if (session == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인되어 있지 않습니다.");
+
+        Optional<Review> optionalReview = reviewRepository.findById(uid);
+
+        if (optionalReview.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("해당 게시글을 찾을 수 없습니다.");
+        }
+        Review foundReview = optionalReview.get();
+
+            if (!foundReview.getUser().getUid().equals(session.getAttribute("userUid"))) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("본인이 작성한 게시물만 수정할 수 있습니다.");
+            }
+
+            foundReview.setTitle(requestReviewDto.getTitle());
+            foundReview.setContent(requestReviewDto.getContent());
+            foundReview.setVideoUrl(requestReviewDto.getVideoUrl());
+            reviewRepository.save(foundReview);
+            return ResponseEntity.status(HttpStatus.OK).body("게시글 수정 완료!");
+    }
+
+    // 리뷰 삭제
+    @DeleteMapping("/review/{uid}")
+    public ResponseEntity<?> deleteReview(@PathVariable int uid, HttpServletRequest request){
+
+        HttpSession session = request.getSession(false);
+        if (session == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인되어 있지 않습니다.");
+
+        Optional<Review> optionalReview = reviewRepository.findById(uid);
+
+        if (optionalReview.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("해당 게시글을 찾을 수 없습니다.");
+        }
+        Review foundReview = optionalReview.get();
+
+        if (!foundReview.getUser().getUid().equals(session.getAttribute("userUid"))) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("본인이 작성한 게시물만 삭제할 수 있습니다.");
+        }
+
+        foundReview.setDeleteYn("y");
+        foundReview.setDeleteDate(LocalDateTime.now());
+        reviewRepository.save(foundReview);
+        return ResponseEntity.status(HttpStatus.OK).body("게시글 삭제 완료!");
+    }
+
+    // 리뷰 전체 조회
+    @GetMapping("/reviews")
+    public ResponseEntity<?> findAllReview(@RequestParam(name = "page") Integer page,
+                                           @RequestParam(name = "size") Integer size){
+        List<ResponseAllReviewDto> foundReviews = reviewService.findAllReview(page, size);
+        return ResponseEntity.status(HttpStatus.OK).body(foundReviews);
+    }
+
 }

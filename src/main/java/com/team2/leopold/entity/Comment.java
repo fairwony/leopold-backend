@@ -14,10 +14,10 @@ public class Comment {
     private String content;
     @Column(name = "write_date")
     private LocalDate writeDate;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "review_uid")
     private Review review;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_uid")
     private User user;
 

@@ -41,6 +41,22 @@ public class One2OneService {
     }
 
     // 1대1 문의 전체 조회
+    public List<ResponseAllOne2OneDto> findAllOne2One(Integer page, Integer pageSize){
+        Sort sort = Sort.by(Sort.Direction.DESC, "uid");
+        Pageable pageable = PageRequest.of(page, pageSize, sort);
+        Page<One2One> one2Ones = repository.findAll(pageable);
 
+        List<ResponseAllOne2OneDto> responseAllOne2OneDtoList = new ArrayList<>();
+        for (One2One one2One : one2Ones.getContent()) {
+            ResponseAllOne2OneDto responseAllOne2OneDto = new ResponseAllOne2OneDto(
+                    one2One.getUid(),
+                    one2One.getTitle(),
+                    one2One.getUser().getName(),
+                    one2One.getWriteDate(),
+                    one2One.getAnswerYn());
+            responseAllOne2OneDtoList.add(responseAllOne2OneDto);
+        }
+            return responseAllOne2OneDtoList;
+    }
 
 }

@@ -103,6 +103,11 @@ public class One2OneController {
     }
 
     //1대1 문의 전체 조회
-
+    @GetMapping("/one2ones")
+    public ResponseEntity<?> findAllOne2One(@RequestParam(name = "page") Integer page,
+                                            @RequestParam(name = "size") Integer size){
+        List<ResponseAllOne2OneDto> foundOne2Ones = service.findAllOne2One(page, size);
+        return ResponseEntity.status(HttpStatus.OK).body(foundOne2Ones);
+    }
 
 }
