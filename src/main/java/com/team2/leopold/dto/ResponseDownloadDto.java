@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class ResponseDownloadDto {
     private Integer uid;
-    private Integer categoryUid;
+    private Integer category;
     private String categoryName;
     private String title;
     private String userName;
@@ -12,9 +12,9 @@ public class ResponseDownloadDto {
     private Long totalElements;
     private Integer totalPages;
 
-    public ResponseDownloadDto(Integer uid, Integer categoryUid, String categoryName, String title, String userName, LocalDate writeDate, Long totalElements, Integer totalPages) {
+    public ResponseDownloadDto(Integer uid, Integer category, String categoryName, String title, String userName, LocalDate writeDate, Long totalElements, Integer totalPages) {
         this.uid = uid;
-        this.categoryUid = categoryUid;
+        this.category = category;
         this.categoryName = categoryName;
         this.title = title;
         this.userName = userName;
@@ -31,12 +31,12 @@ public class ResponseDownloadDto {
         this.uid = uid;
     }
 
-    public Integer getCategoryUid() {
-        return categoryUid;
+    public Integer getCategory() {
+        return category;
     }
 
-    public void setCategoryUid(Integer categoryUid) {
-        this.categoryUid = categoryUid;
+    public void setCategory(Integer category) {
+        this.category = category;
     }
 
     public String getCategoryName() {
