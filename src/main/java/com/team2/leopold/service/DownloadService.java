@@ -34,10 +34,13 @@ public class DownloadService {
         for (Download download : downloads.getContent()) {
             ResponseDownloadDto responseDownloadDto = new ResponseDownloadDto(
                     download.getUid(),
+                    download.getDownloadCategory().getUid(),
                     download.getDownloadCategory().getName(),
                     download.getTitle(),
                     download.getUser().getName(),
-                    download.getWriteDate());
+                    download.getWriteDate(),
+                    downloads.getTotalElements(),
+                    downloads.getTotalPages());
             responseDownloadDtoList.add(responseDownloadDto);
         }
         return responseDownloadDtoList;

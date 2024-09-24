@@ -4,17 +4,23 @@ import java.time.LocalDate;
 
 public class ResponseDownloadDto {
     private Integer uid;
+    private Integer downloadCategoryUid;
     private String categoryName;
     private String title;
     private String userName;
     private LocalDate writeDate;
+    private Long totalElements;
+    private Integer totalPages;
 
-    public ResponseDownloadDto(Integer uid, String categoryName, String title, String userName, LocalDate writeDate) {
+    public ResponseDownloadDto(Integer uid, Integer downloadCategoryUid, String categoryName, String title, String userName, LocalDate writeDate, Long totalElements, Integer totalPages) {
         this.uid = uid;
+        this.downloadCategoryUid = downloadCategoryUid;
         this.categoryName = categoryName;
         this.title = title;
         this.userName = userName;
         this.writeDate = writeDate;
+        this.totalElements = totalElements;
+        this.totalPages = totalPages;
     }
 
     public Integer getUid() {
@@ -23,6 +29,14 @@ public class ResponseDownloadDto {
 
     public void setUid(Integer uid) {
         this.uid = uid;
+    }
+
+    public Integer getDownloadCategoryUid() {
+        return downloadCategoryUid;
+    }
+
+    public void setDownloadCategoryUid(Integer downloadCategoryUid) {
+        this.downloadCategoryUid = downloadCategoryUid;
     }
 
     public String getCategoryName() {
@@ -55,5 +69,21 @@ public class ResponseDownloadDto {
 
     public void setWriteDate(LocalDate writeDate) {
         this.writeDate = writeDate;
+    }
+
+    public Long getTotalElements() {
+        return totalElements;
+    }
+
+    public void setTotalElements(Long totalElements) {
+        this.totalElements = totalElements;
+    }
+
+    public Integer getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(Integer totalPages) {
+        this.totalPages = totalPages;
     }
 }
