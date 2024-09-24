@@ -72,7 +72,7 @@ public class ReviewController {
 
     //리뷰 수정
     @PatchMapping("/review/{uid}")
-    public ResponseEntity modifyReview(@RequestBody RequestReviewDto requestReviewDto, @PathVariable(name = "uid")int uid,
+    public ResponseEntity<?> modifyReview(@RequestBody RequestReviewDto requestReviewDto, @PathVariable(name = "uid")int uid,
                                        HttpServletRequest request){
         if(requestReviewDto.getTitle() == null || requestReviewDto.getContent() == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("데이터가 누락되었습니다.");

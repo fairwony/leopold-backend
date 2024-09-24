@@ -1,5 +1,6 @@
 package com.team2.leopold.service;
 
+import com.team2.leopold.dto.ResponseCommentDto;
 import com.team2.leopold.entity.Comment;
 import com.team2.leopold.entity.Review;
 import com.team2.leopold.entity.User;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,12 +39,25 @@ public class CommentService {
     }
 
     //댓글 조회
-    public Comment findComment(Integer uid){
-        Optional<Comment> foundComment = commentRepository.findById(uid);
+    public Comment findComment(Integer reviewUid){
+        Optional<Comment> foundComment = commentRepository.findById(reviewUid);
         if(foundComment.isPresent()){
             return foundComment.get();
         }
         return null;
     }
+
+    public List<Comment> findCommentList(Integer reviewUid){
+
+        return commentRepository.findCommentByReviewUid(reviewUid);
+    }
+
+    //댓글 삭제
+    @Transactional
+    public void deleteComment(Integer uid){
+        commentRepository.deleteById(uid);
+    }
+
+
 
 }

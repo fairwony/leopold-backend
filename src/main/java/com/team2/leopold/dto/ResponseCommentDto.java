@@ -1,6 +1,9 @@
 package com.team2.leopold.dto;
 
+import com.team2.leopold.entity.Comment;
+
 import java.time.LocalDate;
+import java.util.List;
 
 public class ResponseCommentDto {
     private Integer uid;
@@ -8,12 +11,14 @@ public class ResponseCommentDto {
     private String name;
     private LocalDate writeDate;
 
+
     public ResponseCommentDto(Integer uid, String content, String name, LocalDate writeDate) {
         this.uid = uid;
         this.content = content;
         this.name = name;
         this.writeDate = writeDate;
     }
+
 
     public Integer getUid() {
         return uid;
