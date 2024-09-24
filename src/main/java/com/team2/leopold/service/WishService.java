@@ -48,4 +48,9 @@ public class WishService {
     public List<Wish> findWishList(Integer userUid) {
         return wishRepository.findWishList(userUid);
     }
+
+    /* 구매 상품 목록 조회 */
+    public List<Wish> findWishListByOrderUid(Integer orderUid) {
+        return wishRepository.findWishListByOrderUid(orderUid);
+    }
 }

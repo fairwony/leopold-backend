@@ -22,6 +22,9 @@ public class Cart {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_uid")
     private Product product;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_uid")
+    private Order order;
 
     public Integer getUid() {
         return uid;
@@ -69,5 +72,13 @@ public class Cart {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

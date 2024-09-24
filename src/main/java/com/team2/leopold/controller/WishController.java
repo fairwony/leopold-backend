@@ -1,5 +1,7 @@
 package com.team2.leopold.controller;
 
+import com.team2.leopold.dto.RequestOrderDto;
+import com.team2.leopold.dto.ResponseOrderedWishDto;
 import com.team2.leopold.entity.Cart;
 import com.team2.leopold.entity.Wish;
 import com.team2.leopold.service.WishService;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -53,5 +56,18 @@ public class WishController {
 
         List<Wish> wishList = wishService.findWishList((Integer) session.getAttribute("userUid"));
         return ResponseEntity.status(HttpStatus.OK).body(wishList);
+    }
+
+    /* 구매 상품 목록 조회 */
+    @GetMapping("/ordered/wish")
+    public ResponseEntity<?> findWishListByOrderUid(@RequestParam(name = "orderUid") Integer orderUid) {
+        List<ResponseOrderedWishDto> dtoList = new ArrayList<>();
+
+        List<Wish> wishList = wishService.findWishListByOrderUid(orderUid);
+        for (Wish w : wishList) {
+//            ResponseOrderedWishDto dto = new ResponseOrderedWishDto(w.getUid(), w.getCart().getQuantity(), w.getPrice(), w.getDiscountRate(), w.getCart().getProduct().getProductCategory().getName(), w.getCart().getProduct().getColor(), w.getCart().getProduct().getEngraving(), w.getCart().getProduct().getSwitchValue(), w.getCart().getProduct().getCoverUrl());
+//            dtoList.add(dto);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(dtoList);
     }
 }

@@ -1,53 +1,20 @@
-package com.team2.leopold.entity;
+package com.team2.leopold.dto;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.DynamicInsert;
-
-import java.time.LocalDateTime;
-
-@Entity
-@DynamicInsert
-@Table(name = "`order`")
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer uid;
-    private LocalDateTime date;
+public class RequestOrderDto {
     private String receiver;
-    @Column(name = "receive_method")
     private String receiveMethod;
     private String zipcode;
     private String address;
-    @Column(name = "address_detail")
     private String addressDetail;
     private String phone;
     private String email;
     private String message;
-    @Column(name = "deliver_price")
     private Integer deliverPrice;
     private String status;
-    @Column(name = "final_price")
     private Integer finalPrice;
-    @Column(name = "payment_method")
     private String paymentMethod;
     private String account;
     private String holder;
-
-    public Integer getUid() {
-        return uid;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
 
     public String getReceiver() {
         return receiver;

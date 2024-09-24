@@ -15,4 +15,7 @@ public interface WishRepository extends JpaRepository<Wish, Integer> {
 
     @Query("SELECT w FROM Wish w WHERE w.cart.user.uid = :userUid AND w.orderedYn = 'n'")
     List<Wish> findWishList(@Param("userUid") Integer userUid);
+
+    @Query("SELECT w FROM Wish w JOIN FETCH w.order WHERE w.order.uid = :orderUid")
+    List<Wish> findWishListByOrderUid(@Param("orderUid") Integer orderUid);
 }

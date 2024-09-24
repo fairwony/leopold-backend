@@ -5,8 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface DownloadRepository extends JpaRepository<Download, Integer> {
-//    @Query("Select d From Download d")
-// Page<Download> findDownloads(Pageable pageable);
+    @Query("SELECT d FROM Download d JOIN FETCH d.downloadCategory WHERE d.downloadCategory.uid = :categoryUid")
+    Page<Download> findDownloadsByCategory(Pageable pageable, @Param("categoryUid") Integer categoryUid);
 }
