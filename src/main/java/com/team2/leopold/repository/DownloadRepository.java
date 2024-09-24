@@ -9,5 +9,5 @@ import org.springframework.data.repository.query.Param;
 
 public interface DownloadRepository extends JpaRepository<Download, Integer> {
     @Query("SELECT d FROM Download d JOIN FETCH d.downloadCategory WHERE d.downloadCategory.uid = :categoryUid")
-    Page<Download> findDownloadsByCategory(Pageable pageable, @Param("categoryUid") Integer categoryUid);
+    Page<Download> findDownloadsByCategory(@Param("categoryUid") Integer categoryUid, Pageable pageable);
 }

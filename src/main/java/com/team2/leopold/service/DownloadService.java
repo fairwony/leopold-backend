@@ -3,6 +3,7 @@ package com.team2.leopold.service;
 import com.team2.leopold.dto.ResponseDownloadDto;
 import com.team2.leopold.entity.Download;
 import com.team2.leopold.repository.DownloadRepository;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,11 +25,24 @@ public class DownloadService {
     public DownloadService(DownloadRepository downloadRepository) {
         this.downloadRepository = downloadRepository;
     }
-    // 자료실 전체 조회
-    public List<ResponseDownloadDto> getDownloads(Integer page, Integer pageSize) {
+
+    //자료실 전체 조회
+    public List<ResponseDownloadDto> getDownloads(Integer page, Integer pageSize, Integer categoryUid) throws BadRequestException {
         Sort sort = Sort.by(Sort.Direction.DESC, "uid");
-        Pageable pageable = PageRequest.of(page-1, pageSize, sort);
-        Page<Download> downloads = downloadRepository.findAll(pageable);
+        Pageable pageable = PageRequest.of(page - 1, pageSize, sort);
+        Page<Download> downloads = null;
+
+        if (categoryUid == 1) {
+            downloads = downloadRepository.findDownloadsByCategory(1, pageable);
+        } else if (categoryUid == 2) {
+            downloads = downloadRepository.findDownloadsByCategory(2, pageable);
+        } else if (categoryUid == 3) {
+            downloads = downloadRepository.findDownloadsByCategory(3, pageable);
+        } else if (categoryUid == 0) {
+            downloads = downloadRepository.findAll(pageable);
+        } else {
+            throw new BadRequestException();
+        }
 
         List<ResponseDownloadDto> responseDownloadDtoList = new ArrayList<>();
         for (Download download : downloads.getContent()) {
@@ -45,6 +59,7 @@ public class DownloadService {
         }
         return responseDownloadDtoList;
     }
+
     // 자료실 상세 조회
     public Download readDownload(Integer uid) {
         Optional<Download> foundDownload = downloadRepository.findById(uid);

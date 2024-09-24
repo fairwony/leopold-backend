@@ -4,6 +4,7 @@ import com.team2.leopold.dto.ResponseDownloadDto;
 import com.team2.leopold.dto.ResponseDownloadReadDto;
 import com.team2.leopold.entity.Download;
 import com.team2.leopold.service.DownloadService;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +23,20 @@ public class DownloadController {
     public DownloadController(DownloadService downloadService) {
         this.downloadService = downloadService;
     }
+
     // 자료실 전체 조회
     @GetMapping("/downloads")
     public ResponseEntity<?> readDownload(@RequestParam(name = "page") Integer page,
-                                          @RequestParam(name = "size") Integer size) {
-        List<ResponseDownloadDto> foundDownloads = downloadService.getDownloads(page,size);
-        return ResponseEntity.status(HttpStatus.OK).body(foundDownloads);
+                                          @RequestParam(name = "size") Integer size,
+                                          @RequestParam(name = "category") Integer category) {
+        try {
+            List<ResponseDownloadDto> foundDownloads = downloadService.getDownloads(page, size, category);
+            return ResponseEntity.status(HttpStatus.OK).body(foundDownloads);
+        } catch (BadRequestException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("올바르지 않은 categoryUid");
+        }
     }
+
     // 자료실 상세 조회
     @GetMapping("/downloads/{uid}")
     public ResponseEntity<?> readDownload(@PathVariable Integer uid) {
