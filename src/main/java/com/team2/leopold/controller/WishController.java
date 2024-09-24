@@ -65,8 +65,8 @@ public class WishController {
 
         List<Wish> wishList = wishService.findWishListByOrderUid(orderUid);
         for (Wish w : wishList) {
-//            ResponseOrderedWishDto dto = new ResponseOrderedWishDto(w.getUid(), w.getCart().getQuantity(), w.getPrice(), w.getDiscountRate(), w.getCart().getProduct().getProductCategory().getName(), w.getCart().getProduct().getColor(), w.getCart().getProduct().getEngraving(), w.getCart().getProduct().getSwitchValue(), w.getCart().getProduct().getCoverUrl());
-//            dtoList.add(dto);
+            ResponseOrderedWishDto dto = new ResponseOrderedWishDto(w.getUid(), w.getCart().getQuantity(), w.getPrice(), w.getDiscountRate(), w.getCart().getProduct().getProductCategory().getName(), w.getCart().getProduct().getColor(), w.getCart().getProduct().getEngraving(), w.getCart().getProduct().getSwitchValue(), w.getCart().getProduct().getCoverUrl(), w.getOrder().getStatus());
+            dtoList.add(dto);
         }
         return ResponseEntity.status(HttpStatus.OK).body(dtoList);
     }
