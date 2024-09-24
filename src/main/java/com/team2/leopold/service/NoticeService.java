@@ -47,7 +47,9 @@ public class NoticeService {
                     notice.getTitle(),
                     notice.getUser().getName(),
                     notice.getWriteDate(),
-                    notice.getHit());
+                    notice.getHit(),
+                    notices.getTotalElements(),
+                    notices.getTotalPages());
             responseNoticeDtoList.add(responseNoticeDto);
         }
         return responseNoticeDtoList;
