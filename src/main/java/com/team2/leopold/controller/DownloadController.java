@@ -33,7 +33,7 @@ public class DownloadController {
             List<ResponseDownloadDto> foundDownloads = downloadService.getDownloads(page, size, category);
             return ResponseEntity.status(HttpStatus.OK).body(foundDownloads);
         } catch (BadRequestException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("올바르지 않은 categoryUid");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("올바르지 않은 categoryUid 입니다.");
         }
     }
 
