@@ -22,14 +22,14 @@ public class DownloadService {
     private final DownloadRepository downloadRepository;
 
     @Autowired
-    public DownloadService(DownloadRepository downloadRepository) {
+    public DownloadService(DownloadRepository downloadRepository) {//
         this.downloadRepository = downloadRepository;
     }
 
     //자료실 전체 조회
-    public List<ResponseDownloadDto> getDownloads(Integer page, Integer pageSize, Integer categoryUid) throws BadRequestException {
+    public List<ResponseDownloadDto> getDownloads(Integer page, Integer size, Integer categoryUid) throws BadRequestException {
         Sort sort = Sort.by(Sort.Direction.DESC, "uid");
-        Pageable pageable = PageRequest.of(page - 1, pageSize, sort);
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
         Page<Download> downloads = null;
 
         if (categoryUid == 1) {
