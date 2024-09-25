@@ -36,7 +36,7 @@ public class DownloadController {
         }
     }
     // 자료실 상세 조회
-    @GetMapping("/downloads/{uid}")
+    @GetMapping("/download/{uid}")
     public ResponseEntity<?> readDownload(@PathVariable Integer uid) {
         try {
             Download download = downloadService.readDownload(uid);
