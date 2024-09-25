@@ -23,7 +23,6 @@ import java.util.Optional;
 @RestController
 public class CommentController {
     private CommentRepository commentRepository;
-    private ReviewRepository reviewRepository;
     private final CommentService commentService;
 
     @Autowired

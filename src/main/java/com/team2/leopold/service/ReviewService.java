@@ -41,22 +41,15 @@ public class ReviewService {
         return null;
     }
 
-    // 리뷰 전체 조회
-    public List<ResponseAllReviewDto> findAllReview(Integer page, Integer pageSize){
+    // 리뷰 페이징
+    public Page<Review> findReviews(Integer page, Integer size){
         Sort sort = Sort.by(Sort.Direction.DESC, "uid");
-        Pageable pageable = PageRequest.of(page, pageSize, sort);
-        Page<Review> reviews = reviewRepository.findAll(pageable);
+        Pageable pageable = PageRequest.of(page -1, size, sort);
+        Page<Review> reviews;
 
-        List<ResponseAllReviewDto> responseAllReviewDtoList = new ArrayList<>();
-        for (Review review : reviews.getContent()){
-            ResponseAllReviewDto responseAllReviewDto = new ResponseAllReviewDto(
-                    review.getUid(),
-                    review.getTitle(),
-                    review.getUser().getName(),
-                    review.getWriteDate());
-            responseAllReviewDtoList.add(responseAllReviewDto);
-        }
-        return responseAllReviewDtoList;
+        reviews = reviewRepository.findReviewByUid(pageable);
+
+        return reviews;
     }
 
 }

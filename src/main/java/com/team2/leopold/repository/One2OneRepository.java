@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 
-
 public interface One2OneRepository extends JpaRepository<One2One, Integer> {
-
+    @Query("SELECT o FROM One2One o WHERE deleteYn = 'n'")
+    Page<One2One> findOne2OneByUid(Pageable pageable);
 }

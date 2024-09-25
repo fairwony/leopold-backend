@@ -2,14 +2,14 @@ package com.team2.leopold.dto;
 
 import java.time.LocalDateTime;
 
-public class ResponseAllOne2OneDto {
+public class ResponseOne2OneAllDto {
     private Integer uid;
     private String title;
     private String name;
     private LocalDateTime writeDate;
     private String answerYn;
 
-    public ResponseAllOne2OneDto(Integer uid, String title, String name, LocalDateTime writeDate, String answerYn) {
+    public ResponseOne2OneAllDto(Integer uid, String title, String name, LocalDateTime writeDate, String answerYn) {
         this.uid = uid;
         this.title = title;
         this.name = name;

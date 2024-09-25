@@ -8,11 +8,13 @@ import com.team2.leopold.service.ReviewService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -124,10 +126,24 @@ public class ReviewController {
 
     // 리뷰 전체 조회
     @GetMapping("/reviews")
-    public ResponseEntity<?> findAllReview(@RequestParam(name = "page") Integer page,
-                                           @RequestParam(name = "size") Integer size){
-        List<ResponseAllReviewDto> foundReviews = reviewService.findAllReview(page, size);
-        return ResponseEntity.status(HttpStatus.OK).body(foundReviews);
+    public ResponseEntity<?> findReviews(@RequestParam(name = "page")Integer page,
+                                         @RequestParam(name = "size")Integer size){
+
+        try {
+            Page<Review> reviews = reviewService.findReviews(page, size);
+            Long totalElements = reviews.getTotalElements();
+
+            List<ResponseAllReviewDto> dtoList = new ArrayList<>();
+            for(Review r : reviews.getContent()){
+                ResponseAllReviewDto dto = new ResponseAllReviewDto(r.getUid(), r.getTitle(), r.getUser().getName(), r.getWriteDate());
+                dtoList.add(dto);
+            }
+
+            ResponseReviewPageDto pageDto = new ResponseReviewPageDto(totalElements, dtoList);
+            return ResponseEntity.status(HttpStatus.OK).body(pageDto);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 uid");
+        }
     }
 
 }
