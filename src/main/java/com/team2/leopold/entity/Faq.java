@@ -14,7 +14,7 @@ public class Faq {
 	@Column(name = "image_url")
 	private String imageUrl;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "faq_category_uid")
 	private FaqCategory faqCategory;
 

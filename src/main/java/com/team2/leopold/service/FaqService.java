@@ -15,10 +15,9 @@ public class FaqService {
 	private FaqRepository faqRepository;
 
 	@Autowired
-	public FaqService(FaqRepository faqRepository) {
+	public FaqService(FaqRepository faqRepository) {//
 		this.faqRepository = faqRepository;
 	}
-
 	/* FAQ 전체 목록 조회 */
 	public Page<Faq> findFaqs(Integer page, Integer size, Integer categoryUid) throws BadRequestException {
 		Sort sort = Sort.by(Sort.Direction.DESC, "uid");
