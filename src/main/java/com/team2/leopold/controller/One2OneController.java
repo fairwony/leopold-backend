@@ -71,7 +71,8 @@ public class One2OneController {
                     one2One.getUser().getName(),
                     one2One.getWriteDate(),
                     one2One.getAnswer(),
-                    one2One.getAnswerYn()
+                    one2One.getAnswerYn(),
+                    one2One.getAnswerDate()
             );
             return ResponseEntity.status(HttpStatus.OK).body(responseOne2OneDto);
         } catch (NullPointerException e) {

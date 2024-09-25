@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +27,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @Autowired
-    public CommentController(CommentRepository commentRepository, CommentService commentService){
+    public CommentController(CommentRepository commentRepository, CommentService commentService) {
         this.commentRepository = commentRepository;
         this.commentService = commentService;
     }
@@ -35,12 +36,12 @@ public class CommentController {
     @PostMapping("/comment/write/{uid}")
     public ResponseEntity<?> writeComment(@RequestBody RequestCommentDto requestCommentDto,
                                           HttpServletRequest request,
-                                          @PathVariable(name = "uid") Integer ReviewUid){
+                                          @PathVariable(name = "uid") Integer ReviewUid) {
         if (requestCommentDto.getContent() == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("데이터가 누락되었습니다.");
 
         HttpSession session = request.getSession(false);
-        if(session == null)
+        if (session == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인되어 있지 않습니다.");
 
 
@@ -60,40 +61,40 @@ public class CommentController {
 
     // 댓글 조회
     @GetMapping("/comment/{uid}")
-    public ResponseEntity<?> findComment(@PathVariable(name = "uid") Integer reviewUid){
-        try{
+    public ResponseEntity<?> findComment(@PathVariable(name = "uid") Integer reviewUid) {
+        try {
             List<Comment> commentList = commentService.findCommentList(reviewUid);
-            Comment comment = commentService.findComment(reviewUid);
-            ResponseCommentDto responseCommentDto = new ResponseCommentDto(
-                    comment.getUid(),
-                    comment.getContent(),
-                    comment.getUser().getName(),
-                    comment.getWriteDate()
-            );
-            return ResponseEntity.status(HttpStatus.OK).body(responseCommentDto);
-        }catch (NullPointerException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("댓글을 찾을 수 없습니다.");
+
+            List<ResponseCommentDto> dtoList = new ArrayList<>();
+            for (Comment c : commentList) {
+                ResponseCommentDto dto = new ResponseCommentDto(c.getUid(), c.getContent(), c.getUser().getName(), c.getWriteDate());
+                dtoList.add(dto);
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(dtoList);
+        } catch (NullPointerException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 내부 오류");
         }
     }
 
     // 댓글 수정
     @PatchMapping("/comment/{uid}")
-    public ResponseEntity<?> modifyComment(@RequestBody RequestCommentDto requestCommentDto, @PathVariable(name = "uid")int uid,
-                                           HttpServletRequest request){
-        if(requestCommentDto.getContent() == null)
+    public ResponseEntity<?> modifyComment(@RequestBody RequestCommentDto requestCommentDto, @PathVariable(name = "uid") int uid,
+                                           HttpServletRequest request) {
+        if (requestCommentDto.getContent() == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("데이터가 누락되었습니다.");
 
         HttpSession session = request.getSession(false);
-        if(session == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인되어 있지 않습니다.");
+        if (session == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인되어 있지 않습니다.");
 
         Optional<Comment> optionalComment = commentRepository.findById(uid);
 
-        if(optionalComment.isEmpty()){
+        if (optionalComment.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("해당 댓글을 찾을 수 없습니다.");
         }
         Comment foundComment = optionalComment.get();
 
-        if(!foundComment.getUser().getUid().equals(session.getAttribute("userUid"))){
+        if (!foundComment.getUser().getUid().equals(session.getAttribute("userUid"))) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("본인이 작성한 댓글만 수정할 수 있습니다.");
         }
 
@@ -104,21 +105,21 @@ public class CommentController {
 
     //댓글 삭제
     @DeleteMapping("/comment/{uid}")
-    public ResponseEntity<?> deleteComment(@PathVariable(name = "uid")int uid, HttpServletRequest request){
+    public ResponseEntity<?> deleteComment(@PathVariable(name = "uid") int uid, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if(session == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인되어 있지 않습니다.");
+        if (session == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인되어 있지 않습니다.");
 
         Optional<Comment> optionalComment = commentRepository.findById(uid);
-        if(optionalComment.isEmpty()){
+        if (optionalComment.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("해당 댓글을 찾을 수 없습니다.");
         }
         Comment foundComment = optionalComment.get();
 
-        if(!foundComment.getUser().getUid().equals(session.getAttribute("userUid"))){
+        if (!foundComment.getUser().getUid().equals(session.getAttribute("userUid"))) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("본인이 작성한 댓글만 수정할 수 있습니다.");
         }
 
-        if(optionalComment.isPresent()){
+        if (optionalComment.isPresent()) {
             commentRepository.delete(optionalComment.get());
             commentService.deleteComment((Integer) session.getAttribute("uid"));
         }

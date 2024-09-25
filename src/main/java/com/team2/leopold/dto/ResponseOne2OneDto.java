@@ -13,8 +13,9 @@ public class ResponseOne2OneDto {
     private LocalDateTime writeDate;
     private String answer;
     private String answerYn;
+    private LocalDateTime answerDate;
 
-    public ResponseOne2OneDto(Integer uid, String title, String content, String name, LocalDateTime writeDate, String answer, String answerYn) {
+    public ResponseOne2OneDto(Integer uid, String title, String content, String name, LocalDateTime writeDate, String answer, String answerYn, LocalDateTime answerDate) {
         this.uid = uid;
         this.title = title;
         this.content = content;
@@ -22,6 +23,7 @@ public class ResponseOne2OneDto {
         this.writeDate = writeDate;
         this.answer = answer;
         this.answerYn = answerYn;
+        this.answerDate = answerDate;
     }
 
     public Integer getUid() {
@@ -78,5 +80,13 @@ public class ResponseOne2OneDto {
 
     public void setAnswerYn(String answerYn) {
         this.answerYn = answerYn;
+    }
+
+    public LocalDateTime getAnswerDate() {
+        return answerDate;
+    }
+
+    public void setAnswerDate(LocalDateTime answerDate) {
+        this.answerDate = answerDate;
     }
 }

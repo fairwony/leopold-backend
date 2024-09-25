@@ -39,16 +39,7 @@ public class CommentService {
     }
 
     //댓글 조회
-    public Comment findComment(Integer reviewUid){
-        Optional<Comment> foundComment = commentRepository.findById(reviewUid);
-        if(foundComment.isPresent()){
-            return foundComment.get();
-        }
-        return null;
-    }
-
     public List<Comment> findCommentList(Integer reviewUid){
-
         return commentRepository.findCommentByReviewUid(reviewUid);
     }
 

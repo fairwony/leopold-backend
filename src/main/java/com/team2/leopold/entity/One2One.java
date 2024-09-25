@@ -21,6 +21,8 @@ public class One2One {
     private LocalDateTime deleteDate;
     @Column(name = "answer_yn")
     private String answerYn;
+    @Column(name = "answer_date")
+    private LocalDateTime answerDate;
     private String answer;
     private String email;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -81,6 +83,14 @@ public class One2One {
 
     public LocalDateTime getDeleteDate() {
         return deleteDate;
+    }
+
+    public LocalDateTime getAnswerDate() {
+        return answerDate;
+    }
+
+    public void setAnswerDate(LocalDateTime answerDate) {
+        this.answerDate = answerDate;
     }
 
     public void setDeleteDate(LocalDateTime deleteDate) {
