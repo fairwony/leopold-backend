@@ -21,15 +21,14 @@ public class FaqController {
 	private FaqService faqService;
 
 	@Autowired
-	public FaqController(FaqService faqService) {
+	public FaqController(FaqService faqService) {//
 		this.faqService = faqService;
 	}
-
 	/* FAQ 전체 목록 조회 */
 	@GetMapping("/faq")
 	public ResponseEntity<?> findFaqs(@RequestParam(name = "page") Integer page,
 									  @RequestParam(name = "size") Integer size,
-									  @RequestParam(name = "categoryUid") Integer categoryUid) {
+									  @RequestParam(name = "category") Integer categoryUid) {
 
 		try {
 			Page<Faq> faqs = faqService.findFaqs(page, size, categoryUid);
@@ -44,7 +43,7 @@ public class FaqController {
 			ResponseFaqPageDto pageDto = new ResponseFaqPageDto(totalElements, dtoList);
 			return ResponseEntity.status(HttpStatus.OK).body(pageDto);
 		} catch (BadRequestException e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 categoryUid");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 categoryUid 입니다.");
 		}
 	}
 }

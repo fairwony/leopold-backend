@@ -23,7 +23,6 @@ public class DownloadController {
     public DownloadController(DownloadService downloadService) {
         this.downloadService = downloadService;
     }
-
     // 자료실 전체 조회
     @GetMapping("/downloads")
     public ResponseEntity<?> readDownload(@RequestParam(name = "page") Integer page,
@@ -36,9 +35,8 @@ public class DownloadController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("올바르지 않은 categoryUid 입니다.");
         }
     }
-
     // 자료실 상세 조회
-    @GetMapping("/downloads/{uid}")
+    @GetMapping("/download/{uid}")
     public ResponseEntity<?> readDownload(@PathVariable Integer uid) {
         try {
             Download download = downloadService.readDownload(uid);
