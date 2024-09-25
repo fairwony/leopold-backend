@@ -15,6 +15,7 @@ public class RequestOrderDto {
     private String paymentMethod;
     private String account;
     private String holder;
+    private Integer point;
 
     public String getReceiver() {
         return receiver;
@@ -126,5 +127,13 @@ public class RequestOrderDto {
 
     public void setHolder(String holder) {
         this.holder = holder;
+    }
+
+    public Integer getPoint() {
+        return point;
+    }
+
+    public void setPoint(Integer point) {
+        this.point = point;
     }
 }

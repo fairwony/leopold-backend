@@ -39,4 +39,25 @@ public class UserService {
         if (!foundUser.getPassword().equals(user.getPassword())) throw new AuthenticationException();
         return foundUser;
     }
+
+    /* 포인트 차감 */
+    @Transactional
+    public void reducePoint(Integer amount, Integer userUid) {
+        User foundUser = repository.findById(userUid).get();
+        foundUser.setPoint(foundUser.getPoint() - amount);
+        repository.save(foundUser);
+    }
+
+    /* 포인트 증가 */
+    @Transactional
+    public void increasePoint(Integer amount, Integer userUid) {
+        User foundUser = repository.findById(userUid).get();
+        foundUser.setPoint(foundUser.getPoint() + amount);
+        repository.save(foundUser);
+    }
+
+    /* 유저 정보 반환 */
+    public User findUser(Integer userUid) {
+        return repository.findById(userUid).get();
+    }
 }

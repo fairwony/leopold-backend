@@ -1,40 +1,44 @@
-package com.team2.leopold.entity;
-
-import jakarta.persistence.*;
-import org.hibernate.annotations.DynamicInsert;
+package com.team2.leopold.dto;
 
 import java.time.LocalDateTime;
 
-@Entity
-@DynamicInsert
-@Table(name = "`order`")
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ResponseOrderDto {
     private Integer uid;
     private LocalDateTime date;
     private String receiver;
-    @Column(name = "receive_method")
     private String receiveMethod;
     private String zipcode;
     private String address;
-    @Column(name = "address_detail")
     private String addressDetail;
     private String phone;
-    private String email;
     private String message;
-    @Column(name = "deliver_price")
     private Integer deliverPrice;
     private String status;
-    @Column(name = "final_price")
     private Integer finalPrice;
-    @Column(name = "payment_method")
     private String paymentMethod;
     private String account;
     private String holder;
+    private String name;
     private Integer point;
-    @Column(name = "user_uid")
-    private Integer userUid;
+
+    public ResponseOrderDto(Integer uid, LocalDateTime date, String receiver, String receiveMethod, String zipcode, String address, String addressDetail, String phone, String message, Integer deliverPrice, String status, Integer finalPrice, String paymentMethod, String account, String holder, Integer point) {
+        this.uid = uid;
+        this.date = date;
+        this.receiver = receiver;
+        this.receiveMethod = receiveMethod;
+        this.zipcode = zipcode;
+        this.address = address;
+        this.addressDetail = addressDetail;
+        this.phone = phone;
+        this.message = message;
+        this.deliverPrice = deliverPrice;
+        this.status = status;
+        this.finalPrice = finalPrice;
+        this.paymentMethod = paymentMethod;
+        this.account = account;
+        this.holder = holder;
+        this.point = point;
+    }
 
     public Integer getUid() {
         return uid;
@@ -100,14 +104,6 @@ public class Order {
         this.phone = phone;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getMessage() {
         return message;
     }
@@ -164,19 +160,19 @@ public class Order {
         this.holder = holder;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Integer getPoint() {
         return point;
     }
 
     public void setPoint(Integer point) {
         this.point = point;
-    }
-
-    public Integer getUserUid() {
-        return userUid;
-    }
-
-    public void setUserUid(Integer userUid) {
-        this.userUid = userUid;
     }
 }

@@ -72,6 +72,7 @@ public class UserController {
 			session.setAttribute("user", foundUser);
 			session.setAttribute("userUid", foundUser.getUid());
 			session.setAttribute("userPoint", foundUser.getPoint());
+			session.setAttribute("userName",foundUser.getName());
 
 			return ResponseEntity.status(HttpStatus.OK).body("로그인 완료!");
 		} catch (AuthenticationException e) {
@@ -106,6 +107,17 @@ public class UserController {
 		HttpSession session = request.getSession(false);
 		if (session == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("세션이 존재하지 않음");
 
-		return ResponseEntity.status(HttpStatus.OK).body((Integer) session.getAttribute("userPoint"));
+		User foundUser = service.findUser((Integer) session.getAttribute("userUid"));
+		return ResponseEntity.status(HttpStatus.OK).body(foundUser.getPoint());
+	}
+
+	/* 현재 로그인된 유저 정보 반환 */
+	@GetMapping("/user")
+	public ResponseEntity<?> findUser(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("세션이 존재하지 않음");
+
+		User foundUser = service.findUser((Integer) session.getAttribute("userUid"));
+		return ResponseEntity.status(HttpStatus.OK).body(foundUser);
 	}
 }
