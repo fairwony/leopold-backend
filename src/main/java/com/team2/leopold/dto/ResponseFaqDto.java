@@ -5,14 +5,16 @@ public class ResponseFaqDto {
 	private String question;
 	private String answer;
 	private String imageUrl;
-	private String faqCategoryName;
+	private String categoryName;
+	private Integer categoryUid;
 
-	public ResponseFaqDto(Integer uid, String question, String answer, String imageUrl, String faqCategoryName) {
+	public ResponseFaqDto(Integer uid, String question, String answer, String imageUrl, String categoryName, Integer categoryUid) {
 		this.uid = uid;
 		this.question = question;
 		this.answer = answer;
 		this.imageUrl = imageUrl;
-		this.faqCategoryName = faqCategoryName;
+		this.categoryName = categoryName;
+		this.categoryUid = categoryUid;
 	}
 
 	public Integer getUid() {
@@ -47,11 +49,19 @@ public class ResponseFaqDto {
 		this.imageUrl = imageUrl;
 	}
 
-	public String getFaqCategoryName() {
-		return faqCategoryName;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
-	public void setFaqCategoryName(String faqCategoryName) {
-		this.faqCategoryName = faqCategoryName;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public Integer getCategoryUid() {
+		return categoryUid;
+	}
+
+	public void setCategoryUid(Integer categoryUid) {
+		this.categoryUid = categoryUid;
 	}
 }

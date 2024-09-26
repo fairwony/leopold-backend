@@ -36,7 +36,7 @@ public class FaqController {
 
 			List<ResponseFaqDto> dtoList = new ArrayList<ResponseFaqDto>();
 			for (Faq f : faqs.getContent()) {
-				ResponseFaqDto dto = new ResponseFaqDto(f.getUid(),f.getQuestion(),f.getAnswer(),f.getImageUrl(),f.getFaqCategory().getName());
+				ResponseFaqDto dto = new ResponseFaqDto(f.getUid(),f.getQuestion(),f.getAnswer(),f.getImageUrl(),f.getFaqCategory().getName(),f.getFaqCategory().getUid());
 				dtoList.add(dto);
 			}
 
