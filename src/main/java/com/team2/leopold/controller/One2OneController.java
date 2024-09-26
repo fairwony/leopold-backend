@@ -37,7 +37,7 @@ public class One2OneController {
     // 1대1 문의 작성
     @PostMapping("/one2one/write")
     public ResponseEntity<?> writeOne2One(@RequestBody RequestOne2OneDto requestOne2OneDto, HttpServletRequest request){
-        if(requestOne2OneDto.getTitle() == null || requestOne2OneDto.getContent() == null)
+        if(requestOne2OneDto.getTitle() == null || requestOne2OneDto.getContent() == null || requestOne2OneDto.getEmail() == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("데이터가 누락되었습니다.");
 
         HttpSession session = request.getSession(false);
