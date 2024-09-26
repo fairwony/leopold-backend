@@ -7,7 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface InterestRepository extends JpaRepository<Interest, Integer> {
     @Query("SELECT i FROM Interest i JOIN FETCH i.user WHERE i.user.uid = :userUid")
     Page<Interest> findInterestListByUserUid(@Param("userUid") Integer userUid, Pageable pageable);
+
+    @Query("SELECT i FROM Interest i JOIN FETCH i.product WHERE i.product.uid = :productUid")
+    Optional<Interest> findByProductUid(@Param("productUid") Integer productUid);
 }
