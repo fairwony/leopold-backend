@@ -1,7 +1,9 @@
 package com.team2.leopold.service;
 
+import com.team2.leopold.dto.RequestModifyUserDto;
 import com.team2.leopold.entity.User;
 import com.team2.leopold.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -59,5 +61,34 @@ public class UserService {
     /* 유저 정보 반환 */
     public User findUser(Integer userUid) {
         return repository.findById(userUid).get();
+    }
+
+    /* 아이디 중복 확인 */
+    public boolean isUniqueUser(String id) {
+        Optional<User> optionalUser = repository.findById(id);
+        if(optionalUser.isPresent()) return false;
+        else return true;
+    }
+
+    /* 유저 정보 수정 */
+    @Transactional
+    public void modifyUser(Integer userUid, RequestModifyUserDto dto) throws EntityNotFoundException {
+        Optional<User> optionalUser = repository.findById(userUid);
+        if(optionalUser.isEmpty()) throw new EntityNotFoundException();
+
+        User foundUser = optionalUser.get();
+        foundUser.setPassword(dto.getPassword());
+        foundUser.setName(dto.getName());
+        foundUser.setZipcode(dto.getZipcode());
+        foundUser.setAddress(dto.getAddress());
+        foundUser.setAddressDetail(dto.getAddressDetail());
+        if(dto.getPhoneAlt() == null) foundUser.setPhoneAlt(null);
+        else foundUser.setPhoneAlt(dto.getPhoneAlt());
+        foundUser.setPhone(dto.getPhone());
+        foundUser.setEmail(dto.getEmail());
+        foundUser.setAgreeSmsYn(dto.getAgreeSmsYn());
+        foundUser.setAgreeEmailYn(dto.getAgreeEmailYn());
+
+        repository.save(foundUser);
     }
 }
