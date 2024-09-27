@@ -118,10 +118,8 @@ public class CommentController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("본인이 작성한 댓글만 수정할 수 있습니다.");
         }
 
-        if (optionalComment.isPresent()) {
-            commentRepository.delete(optionalComment.get());
-            commentService.deleteComment((Integer) session.getAttribute("uid"));
-        }
+        commentService.deleteComment(uid);
+
         return ResponseEntity.status(HttpStatus.OK).body("댓글 삭제 완료");
     }
 

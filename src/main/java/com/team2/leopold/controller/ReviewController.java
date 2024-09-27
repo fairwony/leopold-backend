@@ -76,6 +76,8 @@ public class ReviewController {
     @PatchMapping("/review/{uid}")
     public ResponseEntity<?> modifyReview(@RequestBody RequestReviewDto requestReviewDto, @PathVariable(name = "uid")int uid,
                                        HttpServletRequest request){
+        if(requestReviewDto.getTitle() == null || requestReviewDto.getContent() == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("데이터가 누락되었습니다.");
 
         HttpSession session = request.getSession(false);
         if (session == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인되어 있지 않습니다.");
