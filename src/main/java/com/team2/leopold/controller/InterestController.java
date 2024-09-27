@@ -47,6 +47,16 @@ public class InterestController {
 		}
 	}
 
+	/* 관심 상품 비우기 */
+	@DeleteMapping("/interest/all")
+	public ResponseEntity<?> deleteInterestAll(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인되어 있지 않음");
+
+		interestService.deleteInterestAll((Integer) session.getAttribute("userUid"));
+		return ResponseEntity.status(HttpStatus.OK).body("관심 상품 비우기 완료!");
+	}
+
 	/* 관심 상품 목록 */
 	@GetMapping("/interest")
 	public ResponseEntity<?> findInterestList(@RequestParam(name = "page") Integer page, HttpServletRequest request) {

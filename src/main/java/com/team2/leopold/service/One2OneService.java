@@ -41,9 +41,9 @@ public class One2OneService {
     }
 
     //1대1 문의 페이징
-    public Page<One2One> findOne2Ones(Integer page, Integer size){
+    public Page<One2One> findOne2Ones(Integer page, Integer size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "uid");
-        Pageable pageable = PageRequest.of(page-1, size, sort);
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
         Page<One2One> one2Ones;
 
         one2Ones = one2OneRepository.findOne2OneByUid(pageable);
@@ -51,4 +51,8 @@ public class One2OneService {
         return one2Ones;
     }
 
+    //특정 사용자의 1대1 문의 목록
+    public List<One2One> findOne2OnesByUserUid(Integer userUid) {
+        return one2OneRepository.findOne2OneByUserUid(userUid);
+    }
 }

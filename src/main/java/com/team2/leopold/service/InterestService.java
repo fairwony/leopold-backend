@@ -67,6 +67,12 @@ public class InterestService {
 		interestRepository.deleteById(interestUid);
 	}
 
+	/* 관심 상품 비우기 */
+	@Transactional
+	public void deleteInterestAll(Integer userUid) {
+		interestRepository.deleteAllByUserUid(userUid);
+	}
+
 	/* 관심 상품 목록 */
 	public ResponseInterestPageDto findInterestList(Integer userUid, Integer page) {
 		Sort sort = Sort.by(Sort.Direction.DESC, "date");
