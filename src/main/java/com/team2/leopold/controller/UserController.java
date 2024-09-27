@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -148,6 +149,46 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body("유저 정보 수정 완료!");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 유저를 찾을 수 없음");
+        }
+    }
+
+    /* 유저 아이디 찾기 (이메일) */
+    @GetMapping("/idByEmail")
+    public ResponseEntity<?> findIdByEmail(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.findIdByEmail(name, email));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 엔티티를 찾을 수 없음");
+        }
+    }
+
+    /* 유저 아이디 찾기 (휴대폰) */
+    @GetMapping("/idByPhone")
+    public ResponseEntity<?> findIdByPhone(@RequestParam(name = "name") String name, @RequestParam(name = "phone") String phone) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.findIdByPhone(name, phone));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 엔티티를 찾을 수 없음");
+        }
+    }
+
+    /* 유저 비밀번호 찾기 (이메일) */
+    @GetMapping("/passwordByEmail")
+    public ResponseEntity<?> findPasswordByEmail(@RequestParam(name = "id") String id, @RequestParam(name = "name") String name, @RequestParam(name = "email") String email) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.findPasswordByEmail(id, name, email));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 엔티티를 찾을 수 없음");
+        }
+    }
+
+    /* 유저 비밀번호 찾기 (휴대폰) */
+    @GetMapping("/passwordByPhone")
+    public ResponseEntity<?> findPasswordByPhone(@RequestParam(name = "id") String id, @RequestParam(name = "name") String name, @RequestParam(name = "phone") String phone) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.findPasswordByPhone(id, name, phone));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 엔티티를 찾을 수 없음");
         }
     }
 }
