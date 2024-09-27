@@ -17,7 +17,7 @@ public class AsReceptionService {
     }
     // As 접수
     @Transactional
-    public void writeAs(AsReception asReception) {
+    public void writeAs(AsReception asReception) {//
         asReceptionRepository.save(asReception);
     }
 }

@@ -39,6 +39,6 @@ public class AsReceptionController {
         asReception.setTitle(requestAsReceptionDto.getTitle());
         asReception.setContent(requestAsReceptionDto.getContent());
        asReceptionService.writeAs(asReception);
-       return ResponseEntity.status(HttpStatus.CREATED).body("As 접수 되었습니다.");
+       return ResponseEntity.status(HttpStatus.CREATED).body("As가 접수 되었습니다.");
     }
 }
