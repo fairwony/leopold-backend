@@ -6,13 +6,15 @@ public class ResponseInterestDto {
     private String name;
     private String color;
     private Integer price;
+    private Integer productUid;
 
-    public ResponseInterestDto(Integer uid, String coverUrl, String name, String color, Integer price) {
+    public ResponseInterestDto(Integer uid, String coverUrl, String name, String color, Integer price, Integer productUid) {
         this.uid = uid;
         this.coverUrl = coverUrl;
         this.name = name;
         this.color = color;
         this.price = price;
+        this.productUid = productUid;
     }
 
     public Integer getUid() {
@@ -53,5 +55,13 @@ public class ResponseInterestDto {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public Integer getProductUid() {
+        return productUid;
+    }
+
+    public void setProductUid(Integer productUid) {
+        this.productUid = productUid;
     }
 }

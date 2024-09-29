@@ -87,7 +87,7 @@ public class InterestService {
 		List<ResponseInterestDto> interestDtoList = new ArrayList<>();
 		for (Interest i : interestPage.getContent()) {
 			Integer calculatedPrice = (int) (i.getProduct().getPrice() * (1 - i.getProduct().getDiscountRate()));
-			ResponseInterestDto interestDto = new ResponseInterestDto(i.getUid(), i.getProduct().getCoverUrl(), i.getProduct().getProductCategory().getName(), i.getProduct().getColor(), calculatedPrice);
+			ResponseInterestDto interestDto = new ResponseInterestDto(i.getUid(), i.getProduct().getCoverUrl(), i.getProduct().getProductCategory().getName(), i.getProduct().getColor(), calculatedPrice, i.getProduct().getUid());
 			interestDtoList.add(interestDto);
 		}
 		interestPageDto.setList(interestDtoList);
